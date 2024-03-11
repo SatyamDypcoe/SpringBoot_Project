@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+import java.util.Map;
+
 @Service
 public class FakeStoreProductService implements ProductService {
 
@@ -19,7 +22,7 @@ public class FakeStoreProductService implements ProductService {
 
     private Product convertFakeStoreProductToProduct(FakeStoreProductDto fakeStoreProduct){
         Product product = new Product();
-        product.setTittle(fakeStoreProduct.getTitle());
+        product.setTitle(fakeStoreProduct.getTitle());
         product.setId(fakeStoreProduct.getId());
         product.setPrice(fakeStoreProduct.getPrice());
         product.setDescription(fakeStoreProduct.getDescription());
@@ -35,6 +38,16 @@ public class FakeStoreProductService implements ProductService {
                 "https://fakestoreapi.com/products/" + id,
                 FakeStoreProductDto.class
                 );
+        return convertFakeStoreProductToProduct(productDto);
+    }
+
+    @Override
+    public Product addNewProduct(Product product){
+        FakeStoreProductDto productDto = restTemplate.postForObject(
+                "https://fakestoreapi.com/products" ,
+                 product,
+                 FakeStoreProductDto.class
+        );
         return convertFakeStoreProductToProduct(productDto);
     }
 }

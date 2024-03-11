@@ -27,11 +27,10 @@ public class ProductController {
     public Product getSingleProduct(@PathVariable("id") Long id){
         return productService.getSingleProduct(id);
     }
-    @PostMapping()
+    @PostMapping("/add")
     public Product addNewProduct(@RequestBody Product product){
-        Product p = new Product();
-        p.setTittle("A new product");
-        return p;
+
+        return productService.addNewProduct(product);
     }
     @PatchMapping("/{id}")
     public Product updateProduct(@PathVariable("id") Long id, @RequestBody Product product){
