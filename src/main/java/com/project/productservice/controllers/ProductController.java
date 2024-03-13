@@ -21,10 +21,11 @@ public class ProductController {
 
     @GetMapping()
     public List<Product> getAllProducts() {
-        return new ArrayList<>();
+        return productService.getAllProducts();
     }
     @GetMapping("/{id}")
     public Product getSingleProduct(@PathVariable("id") Long id){
+
         return productService.getSingleProduct(id);
     }
     @PostMapping("/add")
