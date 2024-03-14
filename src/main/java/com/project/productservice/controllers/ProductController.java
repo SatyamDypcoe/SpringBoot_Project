@@ -1,8 +1,11 @@
 package com.project.productservice.controllers;
 
+import com.project.productservice.exceptions.ProductNotExistsException;
 import com.project.productservice.models.Product;
 import com.project.productservice.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -24,9 +27,12 @@ public class ProductController {
         return productService.getAllProducts();
     }
     @GetMapping("/{id}")
-    public Product getSingleProduct(@PathVariable("id") Long id){
+    public ResponseEntity<Product> getSingleProduct(@PathVariable("id") Long id) throws ProductNotExistsException {
 
-        return productService.getSingleProduct(id);
+        return new ResponseEntity<>(
+                productService.getSingleProduct(id),
+                HttpStatus.OK);
+
     }
     @PostMapping("/add")
     public Product addNewProduct(@RequestBody Product product){
