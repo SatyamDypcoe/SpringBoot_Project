@@ -35,14 +35,14 @@ public class ProductController {
                 HttpStatus.OK);
 
     }
-    @PostMapping("/add")
+    @PostMapping()
     public Product addNewProduct(@RequestBody Product product){
 
         return productService.addNewProduct(product);
     }
     @PatchMapping("/{id}")
     public Product updateProduct(@PathVariable("id") Long id, @RequestBody Product product){
-        return new Product();
+        return productService.updateProduct(id, product);
     }
     @PutMapping("/{id}")
     public Product replaceProduct(@PathVariable("id") Long id, @RequestBody Product product){
